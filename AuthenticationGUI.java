@@ -23,15 +23,16 @@ public class AuthenticationGUI extends JFrame {
         JButton registerButton = new JButton("Register");
         messageLabel = new JLabel();
 
-        // Set layout
-        setLayout(new GridLayout(5, 1));
-        add(new JLabel("Username:"));
-        add(usernameField);
-        add(new JLabel("Password:"));
-        add(passwordField);
-        add(loginButton);
-        add(registerButton);
-        add(messageLabel);
+        // Set layout using JPanel
+        JPanel panel = new JPanel(new GridLayout(3, 2));
+        panel.add(new JLabel("Username:"));
+        panel.add(usernameField);
+        panel.add(new JLabel("Password:"));
+        panel.add(passwordField);
+        panel.add(loginButton);
+        panel.add(registerButton);
+        add(panel, BorderLayout.CENTER);
+        add(messageLabel, BorderLayout.SOUTH);
 
         // Set button actions
         loginButton.addActionListener(new ActionListener() {
@@ -46,6 +47,9 @@ public class AuthenticationGUI extends JFrame {
                 } else {
                     messageLabel.setText("Invalid credentials. Please try again.");
                 }
+
+                // Clear password field after use
+                passwordField.setText("");
             }
         });
 
@@ -56,17 +60,31 @@ public class AuthenticationGUI extends JFrame {
                 char[] passwordChars = passwordField.getPassword();
                 String password = new String(passwordChars);
 
+<<<<<<< HEAD
                 if (Authentication.isUserRegistered(username)) {
                     messageLabel.setText("Username already exists. Please choose a different one.");
                 } else {
                     Authentication.registerUser(username, password);
                     messageLabel.setText("User registered successfully!");
                 }
+=======
+                if (username.isEmpty() || password.isEmpty()) {
+                    messageLabel.setText("Please enter both username and password.");
+                    return;
+                }
+
+                Authentication.registerUser(username, password);
+                messageLabel.setText("User registered successfully!");
+
+                // Clear fields after registration
+                usernameField.setText("");
+                passwordField.setText("");
+>>>>>>> 191876eb9f91817138a26ba79c77b2bcdb97b9cd
             }
         });
 
         // Set frame properties
-        setSize(300, 250);
+        setSize(300, 150);
         setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         setLocationRelativeTo(null); // Center the frame
         setVisible(true);
