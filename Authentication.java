@@ -36,7 +36,7 @@ public class Authentication {
         saveUserToDatabase(user);
     }
 
-    private static boolean isUserRegistered(String username) {
+    public static boolean isUserRegistered(String username) {
         try (Scanner scanner = new Scanner(new File("Data.txt"))) {
             while (scanner.hasNextLine()) {
                 String line = scanner.nextLine();
@@ -52,7 +52,7 @@ public class Authentication {
         }
         return false;
     }
-
+    
     private static void saveUserToDatabase(User user) {
         try (PrintWriter writer = new PrintWriter(new FileWriter("Data.txt", true))) {
             writer.println(user.getUsername() + "/" + user.getPassword());

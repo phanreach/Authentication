@@ -2,6 +2,11 @@ import javax.swing.*;
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.io.File;
+import java.io.FileWriter;
+import java.io.IOException;
+import java.io.PrintWriter;
+import java.util.Scanner;
 
 public class AuthenticationGUI extends JFrame {
     private JTextField usernameField;
@@ -51,8 +56,12 @@ public class AuthenticationGUI extends JFrame {
                 char[] passwordChars = passwordField.getPassword();
                 String password = new String(passwordChars);
 
-                Authentication.registerUser(username, password);
-                messageLabel.setText("User registered successfully!");
+                if (Authentication.isUserRegistered(username)) {
+                    messageLabel.setText("Username already exists. Please choose a different one.");
+                } else {
+                    Authentication.registerUser(username, password);
+                    messageLabel.setText("User registered successfully!");
+                }
             }
         });
 
@@ -70,5 +79,21 @@ public class AuthenticationGUI extends JFrame {
                 new AuthenticationGUI();
             }
         });
+    }
+}
+
+class Authentication {
+    public static boolean authenticateUser(String username, String password) {
+        // Add your authentication logic here (e.g., check against a database)
+        return false; // Placeholder
+    }
+
+    public static boolean isUserRegistered(String username) {
+        // Add your logic to check if the username exists in your database or file
+        return false; // Placeholder
+    }
+
+    public static void registerUser(String username, String password) {
+        // Add your logic to register the user in your database or file
     }
 }
